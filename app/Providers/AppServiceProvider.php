@@ -24,13 +24,15 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $projectId = env('GOOGLE_CLOUD_PROJECT_ID'); // Ensure you have this in your .env file
+        $projectId = env('GOOGLE_CLOUD_PROJECT_ID'); 
         $logging = new LoggingClient([
             'projectId' => $projectId
         ]);
         $logger = $logging->psrLogger('app');
 
-        // You can bind the logger to the service container if needed
         $this->app->instance('GoogleCloudLogger', $logger);
+
+        // Add a test log entry
+        $logger->info('Google Cloud Logging is configured correctly.');
     }
 }
